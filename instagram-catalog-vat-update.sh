@@ -1,4 +1,4 @@
-#!/usr/bin/vash
+#!/usr/bin/bash
 
 cd /home/bidiman/
 
