@@ -28,9 +28,9 @@ print("\n");
 
 
 while (my $record = $objects->fetch) {
-  if($record->{'link'}) {
-    $record->{'link'} =~ s/www\.billy\.be/www.billyskate.be/;
-  }
+  # if($record->{'link'}) {
+  #   $record->{'link'} =~ s/www\.billy\.be/www.billyskate.be/;
+  # }
   if($record->{'price'}) {
     my ($num, $cur) = split(/\s+/, $record->{price});
     $num *= $VAT_RATE;
