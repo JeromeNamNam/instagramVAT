@@ -2,13 +2,15 @@
 use strict;
 use Parse::CSV;
 use Data::Dumper;
+use Math::Round;
 binmode STDOUT, ":utf8";
 
 our $VAT_RATE = 1.21;
 
+
 my $input = shift(@ARGV);
 if(!$input) {
-  die("usage: $0 <input> <output>");
+  die("usage: $0 <input> > <output>");
 }
 
 # Parse a colon-separated variables file  from a handle as a hash
@@ -24,15 +26,21 @@ our @headers = map { "\"$_\"" } split(/\s+/, "id title description link image_li
 print(join("\t", @headers));
 print("\n");
 
+
 while (my $record = $objects->fetch) {
-  if($record->{price}) {
+  if($record->{'link'}) {
+    $record->{'link'} =~ s/www\.billy\.be/www.billyskate.be/;
+  }
+  if($record->{'price'}) {
     my ($num, $cur) = split(/\s+/, $record->{price});
     $num *= $VAT_RATE;
+    $num = Math::Round::round(100*$num)/100;
     $record->{price} = "$num $cur";
   }
-  if($record->{sale_price}) {
+  if($record->{'sale_price'}) {
     my ($num, $cur) = split(/\s+/, $record->{sale_price});
     $num *= $VAT_RATE;
+    $num = Math::Round::round(100*$num)/100;
     $record->{sale_price} = "$num $cur";
   }
 
