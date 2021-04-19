@@ -1,3 +1,5 @@
+// a placer dans le répertoire  /usr/local/bin
+// et lui donner le chmod 755 $chmod 755 mon fichier
 use std::fs::File;
 use std::io::prelude::*;
 use std::io::{self, Write};
